@@ -22,7 +22,8 @@ export class AuthService {
       buscaUsuario.senha,
     );
     if (buscaUsuario && matchPassword) {
-      const { senha: _, ...resposta } = buscaUsuario;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { senha, ...resposta } = buscaUsuario;
       return resposta;
     }
     return null;
@@ -31,7 +32,9 @@ export class AuthService {
   async login(usuarioLogin: UsuarioLogin) {
     const payload = { sub: usuarioLogin.usuario };
 
-    const buscaUsuario = await this.usuarioService.findByUsuario(usuarioLogin.usuario);
+    const buscaUsuario = await this.usuarioService.findByUsuario(
+      usuarioLogin.usuario,
+    );
 
     return {
       id: buscaUsuario!.id,
@@ -39,7 +42,7 @@ export class AuthService {
       usuario: usuarioLogin.usuario,
       senha: '',
       foto: buscaUsuario!.foto,
-      token: `Bearer ${this.jwtService.sign(payload)}`
+      token: `Bearer ${this.jwtService.sign(payload)}`,
     };
   }
 }
