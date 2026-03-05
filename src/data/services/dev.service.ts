@@ -12,8 +12,11 @@ export class DevService implements TypeOrmOptionsFactory {
       url: process.env.DATABASE_URL,
       entities: [Postagem, Tema, Usuario],
       synchronize: true,
-      ssl: {
-        rejectUnauthorized: false,
+      ssl: true,
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        },
       },
     };
   }
