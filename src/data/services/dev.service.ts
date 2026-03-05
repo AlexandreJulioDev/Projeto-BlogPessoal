@@ -8,14 +8,13 @@ import { Usuario } from '../../usuario/entities/usuario.entity';
 export class DevService implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'db_blogpessoal',
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
       entities: [Postagem, Tema, Usuario],
       synchronize: true,
+      ssl: {
+        rejectUnauthorized: false,
+      },
     };
   }
 }
